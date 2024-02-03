@@ -1,0 +1,9 @@
+pandas
+
+Pyarrow  # pandas dependency
+
+
+# html parsing
+lxml
+html5lib
+bs4
