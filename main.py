@@ -16,8 +16,22 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 # values = set of quest IDs
 WORLD_QUESTS: dict[str, set[int]] = {
     "legion": {},
+
     "bfa": {
-        51976,  # Green Sabertron
+        # 51976,  # Green Sabertron
+        # 50873, # Test
+        # # 51173, # Sandfishing
+        54689, # "Lights Out" for [Doomsoul Surprise]
+        # 54415, # "Vulpera for a Day" for [Scavenge like a Vulpera]
+        50717, # "Don't Stalk Me, Troll" for [Zandalari Spycatcher]
+        # 50786, # "Revenge of Krag'wa" for [Revenge is Best Served Speedily]
+        50665, # "Cancel the Blood Troll Apocalypse" for [A Most Efficient Apocalypse]
+        # 51957, # "The Wrath of Vorrik" for [Vorrik's Champion] Part 1
+        # 51983, # "Vorrik's Vengeance" for [Vorrik's Champion] Part 2
+        # [Vorrik's Champion] Part 3
+        # 52798, # "A Few More Charges" for [Hungry, Hungry Ranishu]
+
+
     },
     "sl": {},
     "df": {
@@ -88,15 +102,20 @@ def get_world_quests_info(html: str) -> dict:
 def get_world_quests_from_html(text: str) -> list[WorldQuest]:
     # find the correct line
     for line in text.splitlines():
-        if line.startswith("new Listview({"):
-            # expected line example:
-            # >>> new Listview({"parent":"list","id":"lv-world-quests","template":"worldquests","data":[]});
-            # we need the list of "data"
-            line = line.split('"data":')[-1]
-            line = line.rstrip("});")
 
-            world_quests = pydantic.TypeAdapter(list[WorldQuest]).validate_json(line)
-            return world_quests
+        if "new Listview({" not in line:
+            continue
+
+        # expected line example:
+        # >>> new Listview({"parent":"list","id":"lv-world-quests","template":"worldquests","data":[]});
+        # we need the list of "data"
+        line = line.split('"data":')[-1]
+        line = line.split(';')[0]
+        line = line.rstrip("});")
+
+        world_quests = pydantic.TypeAdapter(list[WorldQuest]).validate_json(line)
+        return world_quests
+
     return []
 
 
@@ -162,7 +181,6 @@ def get_active_world_quests(expansion: str) -> list[WorldQuest]:
 
     info = get_world_quests_info(html)
     world_quests = get_world_quests_from_html(html)
-
     for world_quest in world_quests:
         world_quest.info = info.get(world_quest.id, {})
 
@@ -171,6 +189,7 @@ def get_active_world_quests(expansion: str) -> list[WorldQuest]:
 
 def main() -> None:
     world_quests: list[WorldQuest] = []
+
     for expansion, qids in WORLD_QUESTS.items():
         active_world_quests = get_active_world_quests(expansion)
         active_world_quests = [wq for wq in active_world_quests if wq.id in qids]
