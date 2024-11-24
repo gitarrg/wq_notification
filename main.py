@@ -37,6 +37,10 @@ WORLD_QUESTS: dict[str, set[int]] = {
     "df": {
         # 78370,  # Claws for Concern
     },
+    "tww" : {
+        82120, # Pool Cleaner
+        82580, # Courier Mission: Ore Recovery
+    }
 }
 
 ################################################################################
