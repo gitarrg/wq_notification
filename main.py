@@ -14,33 +14,32 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 # Dict of World Quests to track.
 # keys = expansions (must match the url's from wowhead)
 # values = set of quest IDs
-WORLD_QUESTS: dict[str, set[int]] = {
-    "legion": {},
-
-    "bfa": {
+WORLD_QUESTS: dict[str, list[int]] = {
+    "legion": [
+        # 42819, # Legion World Boss: Humongris
+     ],
+    "bfa": [
         # 51976,  # Green Sabertron
         # 50873, # Test
-        # # 51173, # Sandfishing
-        54689, # "Lights Out" for [Doomsoul Surprise]
+        51173, # Sandfishing
+        # 54689, # "Lights Out" for [Doomsoul Surprise]
         # 54415, # "Vulpera for a Day" for [Scavenge like a Vulpera]
-        50717, # "Don't Stalk Me, Troll" for [Zandalari Spycatcher]
+        # 50717, # "Don't Stalk Me, Troll" for [Zandalari Spycatcher]
         # 50786, # "Revenge of Krag'wa" for [Revenge is Best Served Speedily]
-        50665, # "Cancel the Blood Troll Apocalypse" for [A Most Efficient Apocalypse]
+        # 50665, # "Cancel the Blood Troll Apocalypse" for [A Most Efficient Apocalypse]
         # 51957, # "The Wrath of Vorrik" for [Vorrik's Champion] Part 1
         # 51983, # "Vorrik's Vengeance" for [Vorrik's Champion] Part 2
         # [Vorrik's Champion] Part 3
         # 52798, # "A Few More Charges" for [Hungry, Hungry Ranishu]
-
-
-    },
-    "sl": {},
-    "df": {
+    ],
+    "sl": [],
+    "df": [
         # 78370,  # Claws for Concern
-    },
-    "tww" : {
-        82120, # Pool Cleaner
-        82580, # Courier Mission: Ore Recovery
-    }
+    ],
+    "tww" : [
+        # 82120, # Pool Cleaner
+        # 82580, # Courier Mission: Ore Recovery
+    ]
 }
 
 ################################################################################
