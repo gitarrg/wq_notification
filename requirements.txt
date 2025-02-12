@@ -1,7 +1,8 @@
 pandas
+pydantic
 
 Pyarrow  # pandas dependency
-
+requests
 
 # html parsing
 lxml
