@@ -17,11 +17,12 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 WORLD_QUESTS: dict[str, list[int]] = {
     "legion": [
         # 42819, # Legion World Boss: Humongris
-     ],
+        # 45977, # Where There is a Whip...
+    ],
     "bfa": [
         # 51976,  # Green Sabertron
         # 50873, # Test
-        51173, # Sandfishing
+        # 51173, # Sandfishing
         # 54689, # "Lights Out" for [Doomsoul Surprise]
         # 54415, # "Vulpera for a Day" for [Scavenge like a Vulpera]
         # 50717, # "Don't Stalk Me, Troll" for [Zandalari Spycatcher]
@@ -36,10 +37,10 @@ WORLD_QUESTS: dict[str, list[int]] = {
     "df": [
         # 78370,  # Claws for Concern
     ],
-    "tww" : [
+    "tww": [
         # 82120, # Pool Cleaner
         # 82580, # Courier Mission: Ore Recovery
-    ]
+    ],
 }
 
 ################################################################################
@@ -113,7 +114,7 @@ def get_world_quests_from_html(text: str) -> list[WorldQuest]:
         # >>> new Listview({"parent":"list","id":"lv-world-quests","template":"worldquests","data":[]});
         # we need the list of "data"
         line = line.split('"data":')[-1]
-        line = line.split(';')[0]
+        line = line.split(";")[0]
         line = line.rstrip("});")
 
         world_quests = pydantic.TypeAdapter(list[WorldQuest]).validate_json(line)
